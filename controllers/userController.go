@@ -21,7 +21,7 @@ var userCollection *mongo.Collection = database.OpenCollection(database.Client, 
 func GetUsers() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
-		defer cancel()
+		
 
 		recordPerPage, err := strconv.Atoi(c.Query("recordPerPage"))
 		if err != nil || recordPerPage < 1 {
@@ -46,6 +46,7 @@ func GetUsers() gin.HandlerFunc {
 
 		result, err := userCollection.Aggregate(ctx, mongo.Pipeline{
 			matchStage, projectStage})
+			defer cancel()
 
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while listing user items"})
