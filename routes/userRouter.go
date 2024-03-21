@@ -1,7 +1,11 @@
 package routes
 
-import "github.com/gin-gonic/gin"
+import (
+	controller "restruant-management/controllers"
 
-func UserRouter(router *gin.Engine) {
-	router.GET("/user", userController.GetUser())
+	"github.com/gin-gonic/gin"
+)
+
+func UserRoutes(router *gin.Engine) {
+	router.GET("/user", controller.GetUser())
 }

@@ -2,22 +2,21 @@ package main
 
 import (
 	"os"
+	"restruant-management/Middleware"
+	"restruant-management/database"
+	"restruant-management/routes"
 	"time"
-    "restruant-managment/database"
-	"restruant-managment/routes"
-	"restruant-managment/Middleware"
-	
+
 	"github.com/gin-gonic/gin"
-	"go.mongodb.org/mongo-driver/mongo"
+	_ "go.mongodb.org/mongo-driver/mongo"
 )
 
-var foodCollection *mongo.foodCollection = database.OpenCollection(database.Client,"food")
+var foodCollection *mongo.foodCollection = database.OpenCollection(database.Client, "food")
 
-
-func main(){
+func main() {
 	port := os.Getenv("PORT")
 
-	if port == ""{
+	if port == "" {
 		port = "8080"
 	}
 	time.Now()
@@ -25,17 +24,15 @@ func main(){
 	router := gin.New()
 	router.Use(gin.Logger())
 
-	router.UserRouter(router)
+	routes.UserRoutes(router)
 	router.Use(Middleware.Authentication())
-    
-	
-	routes.FoodRoutes(router)
-	routes.OrderRoutes(router)
-	routes.MenuRoutes(router)
-	routes.TableRoutes(router)
-	routes.OrderItemRoutes(router)
-	routes.InvoiceRoutes(router)
-	
-    
-    router.Run(":"+ port)
+
+	//routes.FoodRoutes(router)
+	//routes.OrderRoutes(router)
+	//routes.MenuRoutes(router)
+	//routes.TableRoutes(router)
+	//routes.OrderItemRoutes(router)
+	//routes.InvoiceRoutes(router)
+
+	router.Run(":" + port)
 }
