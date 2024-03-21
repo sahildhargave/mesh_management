@@ -2,8 +2,8 @@ package main
 
 import (
 	"os"
-	middleware "restruant-management/Middleware"
 	"restruant-management/database"
+	middleware "restruant-management/middleware"
 	"restruant-management/routes"
 	"time"
 
@@ -12,6 +12,7 @@ import (
 )
 
 var foodCollection *mongo.Collection = database.OpenCollection(database.Client, "food")
+
 func main() {
 	port := os.Getenv("PORT")
 

@@ -114,7 +114,7 @@ func ValidateToken(signedToken string) (claims *SignedDetails, msg string) {
 
 	// the token is expire
 	if claims.ExpiresAt < time.Now().Local().Unix() {
-		msg = fmt.Sprint("token is expire")
+		msg = fmt.Sprintf("token is expire")
 		msg = err.Error()
 		return
 	}
