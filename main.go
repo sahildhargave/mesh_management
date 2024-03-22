@@ -5,7 +5,6 @@ import (
 	"restruant-management/database"
 	middleware "restruant-management/middleware"
 	"restruant-management/routes"
-	"time"
 
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -19,7 +18,6 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
-	time.Now()
 
 	router := gin.New()
 	router.Use(gin.Logger())
@@ -27,12 +25,12 @@ func main() {
 	routes.UserRoutes(router)
 	router.Use(middleware.Authentication())
 
-	//routes.FoodRoutes(router)
-	//routes.OrderRoutes(router)
-	//routes.MenuRoutes(router)
-	//routes.TableRoutes(router)
-	//routes.OrderItemRoutes(router)
-	//routes.InvoiceRoutes(router)
+	routes.FoodRoutes(router)
+	routes.OrderRoutes(router)
+	routes.MenuRoutes(router)
+	routes.TableRoutes(router)
+	routes.OrderItemRoutes(router)
+	routes.InvoiceRoutes(router)
 
 	router.Run(":" + port)
 }
